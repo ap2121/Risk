@@ -22,6 +22,7 @@ h3 {
     grid-template-columns: 50px 50px;
     grid-template-rows: 50px 50px;
     padding-top: 30px;
+   
     
    
 }
@@ -37,13 +38,28 @@ h3 {
     
 }
 
-.p1-box, .neutral-box, .p2-box {
+.p1-box {
     display: flex;
     border: 1px solid black;
     align-items: center;
     justify-content: center;
+    background-color: skyblue;
+}
+.neutral-box {
+    display: flex;
+    border: 1px solid black;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(184, 184, 184);
 }
 
+.p2-box {
+    display: flex;
+    border: 1px solid black;
+    align-items: center;
+    justify-content: center;
+    background-color: red;
+}
 .neutral-boxes {
     display: grid;
     grid-template-columns: 80px 80px;
@@ -58,3 +74,4 @@ h3 {
     justify-content: left;
     margin-left: 30px;
 }
+
