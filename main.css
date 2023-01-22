@@ -1,0 +1,60 @@
+*{
+    padding: 0;
+    margin: 0
+}
+h1{
+    text-align: center;
+    font-size: 100px;
+}
+
+h3 {
+    text-align: center;
+    font-size: 30px;
+
+}
+.buttons {
+    display: grid;
+    column-gap: 5px;
+    row-gap: 5px;
+    justify-content: center;
+    margin-top: 10px;
+    margin-bottom: 40px;
+    grid-template-columns: 50px 50px;
+    grid-template-rows: 50px 50px;
+    padding-top: 30px;
+    
+   
+}
+
+.player1-boxes {
+    display: grid;
+    grid-template-columns: 80px 80px;
+    grid-template-rows: 80px 80px; 
+    justify-content: right;
+    margin-right: 30px;
+
+
+    
+}
+
+.p1-box, .neutral-box, .p2-box {
+    display: flex;
+    border: 1px solid black;
+    align-items: center;
+    justify-content: center;
+}
+
+.neutral-boxes {
+    display: grid;
+    grid-template-columns: 80px 80px;
+    grid-template-rows: 80px 80px;
+    justify-content: center;
+}
+
+.player2-boxes {
+    display: grid;
+    grid-template-columns: 80px 80px;
+    grid-template-rows: 80px 80px; 
+    justify-content: left;
+    margin-left: 30px;
+}
