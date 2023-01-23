@@ -29,6 +29,8 @@ let attack = false;
 let move = false;
 let attackingScore = 0;
 let defendingScore = 0;
+let probabilityArray = [];
+let currentAS; 
 //
 
 const rollDice = () => {
@@ -38,7 +40,7 @@ const rollDice = () => {
         whoGoesFirst(p1DiceAmount,p2DiceAmount)
     } else {
         console.log('Test')
-    }
+    } 
     }
 
 diceButton.addEventListener('click',rollDice)
@@ -62,15 +64,33 @@ const moveToggle = () => {
         move = true;
         moveButton.innerHTML = "Cancel";
         console.log(move)
+        
     } else if(move === true) {
         move = false;
         moveButton.innerHTML = "Move";
         console.log(move);
     }
+    
 }
 
-attackButton.addEventListener('click', attackToggle);
-moveButton.addEventListener('click', moveToggle);
+
+
+
+
+
+const firstElement = (e) => {
+    const clickedElement = e.target;
+    currentAS = e.target;
+    for(let box of boxes) {
+        box.style.border = "1px solid black";
+    }
+   if(attack === true) {
+    battleFunction(clickedElement);
+    
+   } else if(attack === false) {
+    highlightAE(clickedElement);
+   }
+}
 
 
 //who goes first function 
@@ -145,6 +165,46 @@ const isEnemy = (element1, element2) => {
 
 
 
+
+const highlightAE = (element) => {
+    
+    element.style.border = "5px solid orange";
+    for(let box of boxes) {
+       
+        if(isAdjacent(element,box) === true && isEnemy(element,box) === true) {
+            box.style.border = "5px solid green";
+    } else if(isAdjacent(element, box) === true && isEnemy(element, box) !== true) {
+        box.style.border = "5px solid blue";
+    }
+    }
+}
+
+const battleLogic = (e) => {
+    attackingScore = parseInt(currentAS.innerHTML);
+    defendingScore = parseInt(e.target.innerHTMl)    
+    if(parseInt(currentAS.innerHTML) === parseInt(e.target.innerHTML)) {
+            probabilityArray.push(0);
+            probabilityArray.push(1);
+            console.log(probabilityArray);
+        } else if(parseInt(currentAS.innerHTML) > parseInt(e.target.innerHTML)) {
+
+        }
+    
+    
+    
+}
+
+const battleFunction = (element) => {
+    element.style.border = "5px solid yellow";
+    for(let box of boxes) {
+        if(isAdjacent(element,box) === true && isEnemy(element, box) === true ) {
+            box.style.border = "5px solid green";
+            box.addEventListener('click', battleLogic);
+        } 
+    } 
+    
+}
+
 //new game function 
 const newGame = () => {
     textToggle.innerHTML = "ROLL TO SEE WHO GOES FIRST!";
@@ -159,8 +219,10 @@ const newGame = () => {
     for(let box of boxes) {
         box.style.border = "1px solid black";
     }
-    for(let box of boxes) {
-        box.removeEventListener('click', firstElement)
-    }
+   for(let box of boxes) {
+    box.removeEventListener('click', firstElement);
+   }
 }
 newButton.addEventListener('click', newGame);
+attackButton.addEventListener('click', attackToggle);
+moveButton.addEventListener('click', moveToggle);
