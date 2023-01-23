@@ -19,8 +19,8 @@ const box8 = document.getElementById("box-8");
 const box9 = document.getElementById("box-9");
 const box10 = document.getElementById("box-10");
 //player box arrays
-let player1Boxes = [box1, box2, box3] 
-let neutralBoxes = [box4, box5, box6, box7];
+let player1Boxes = [box1, box2, box3]; 
+let neutralBoxes = [box4, box6, box5, box7];
 let player2Boxes = [box8, box9, box10];
 //
 let player1Turn = false;
@@ -38,6 +38,7 @@ const rollDice = () => {
     }
 
 diceButton.addEventListener('click',rollDice)
+
 //who goes first function 
 const whoGoesFirst = (p1Dice, p2Dice) => {
     if(p1Dice === p2Dice) {
@@ -91,8 +92,13 @@ const isAdjacent = (element1, element2) => {
     }
 }
 
-
-
+const isEnemy = (element1, element2) => {
+    if(player1Boxes.includes(element1) && player2Boxes.includes(element2) || neutralBoxes.includes(element2)) {
+        return true;
+    } else if(player2Boxes.includes(element1) && player1Boxes.includes(element2) || neutralBoxes.includes(element2)) {
+        return true;
+    } 
+}
 
 const testFunction = (e) => {
     const clickedElement = e.target;
@@ -104,14 +110,15 @@ const testFunction = (e) => {
 for(let box of boxes) {
     box.addEventListener('click', testFunction)
 }
+
 const testFunction2 = (element) => {
     
     element.style.border = "5px solid orange";
     for(let box of boxes) {
-        if(isAdjacent(element, box) === true) {
-            box.style.border = "5px solid blue";
-            
-        }
+       
+        if(isAdjacent(element,box) && isEnemy(element,box) === true) {
+            box.style.border = "5px solid green";
+    }
     }
 }
 
