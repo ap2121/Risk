@@ -39,6 +39,15 @@ const rollDice = () => {
 
 diceButton.addEventListener('click',rollDice)
 
+const testFunction = (e) => {
+    const clickedElement = e.target;
+    for(let box of boxes) {
+        box.style.border = "1px solid black";
+    }
+    testFunction2(clickedElement);
+ }
+
+
 //who goes first function 
 const whoGoesFirst = (p1Dice, p2Dice) => {
     if(p1Dice === p2Dice) {
@@ -46,14 +55,21 @@ const whoGoesFirst = (p1Dice, p2Dice) => {
            } else if(p1Dice > p2Dice) {
         textToggle.innerHTML = `Player 1 rolled ${p1Dice} and player 2 rolled ${p2Dice}... Player 1 goes first!`
         player1Turn = true;
+        for(let box of player1Boxes) {
+            box.addEventListener('click', testFunction);
+        }
         diceButton.removeEventListener('click', rollDice);
             
     } 
     else if(p2Dice > p1Dice) {
         textToggle.innerHTML = `Player 2 rolled ${p2Dice} and Player 1 rolled ${p1Dice}... Player 2 goes first!`
         player2Turn = true;
+        for(let box of player2Boxes) {
+            box.addEventListener('click', testFunction)
+        }
         diceButton.removeEventListener('click', rollDice);
     }
+    
 }
 
 const isAdjacent = (element1, element2) => {
@@ -100,23 +116,28 @@ const isEnemy = (element1, element2) => {
     } 
 }
 
-const testFunction = (e) => {
-    const clickedElement = e.target;
-    for(let box of boxes) {
-        box.style.border = "1px solid black";
-    }
-    testFunction2(clickedElement);
-}
-for(let box of boxes) {
-    box.addEventListener('click', testFunction)
-}
 
+
+
+//  for(let box of boxes) {
+//     box.addEventListener('click', testFunction);
+//  }
+if(player1Turn === true && player2Turn === false) {
+    for(let box of player1Boxes) {
+        console.log(box)
+        box.addEventListener('click', testFunction)
+    } 
+} else if(player2Turn === true && player1Turn === false) {
+    for(let box of player2Boxes) {
+       box.addEventListener('click', testFunction);
+    }
+}
 const testFunction2 = (element) => {
     
     element.style.border = "5px solid orange";
     for(let box of boxes) {
        
-        if(isAdjacent(element,box) && isEnemy(element,box) === true) {
+        if(isAdjacent(element,box) === true && isEnemy(element,box) === true) {
             box.style.border = "5px solid green";
     }
     }
@@ -135,6 +156,9 @@ const newGame = () => {
     player2Boxes = [box8, box9, box10];
     for(let box of boxes) {
         box.style.border = "1px solid black";
+    }
+    for(let box of boxes) {
+        box.removeEventListener('click', testFunction)
     }
 }
 newButton.addEventListener('click', newGame);
