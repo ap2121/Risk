@@ -15,7 +15,7 @@ h3 {
 .buttons {
     display: grid;
     column-gap: 5px;
-    row-gap: 5px;
+    row-gap: 10px;
     justify-content: center;
     margin-top: 10px;
     margin-bottom: 40px;
