@@ -3,8 +3,8 @@ const textToggle = document.getElementById('text-toggle');
 //button elements
 const buttonContainer = document.querySelectorAll('.buttons');
 const diceButton = document.getElementById('roll-dice');
-const attackButton = document.getElementById('attack-button');
-const moveButton = document.getElementById('move-button');
+const attackButton = document.getElementById('attack');
+const moveButton = document.getElementById('move');
 const newButton = document.getElementById('new');
 //box elements
 const boxes = document.querySelectorAll('.boxes div')
@@ -25,6 +25,10 @@ let player2Boxes = [box8, box9, box10];
 //
 let player1Turn = false;
 let player2Turn = false;
+let attack = false;
+let move = false;
+let attackingScore = 0;
+let defendingScore = 0;
 //
 
 const rollDice = () => {
@@ -39,13 +43,34 @@ const rollDice = () => {
 
 diceButton.addEventListener('click',rollDice)
 
-const testFunction = (e) => {
-    const clickedElement = e.target;
-    for(let box of boxes) {
-        box.style.border = "1px solid black";
+const attackToggle = () => {
+    if(attack === false) {
+        
+        attack = true;
+        attackButton.innerHTML = "End Attack"
+        console.log(attack)
+    } else if(attack === true) {
+    
+        attack = false;
+        attackButton.innerHTML = "Attack";
+        console.log(attack)
     }
-    testFunction2(clickedElement);
- }
+}
+
+const moveToggle = () => {
+    if(move === false) {
+        move = true;
+        moveButton.innerHTML = "Cancel";
+        console.log(move)
+    } else if(move === true) {
+        move = false;
+        moveButton.innerHTML = "Move";
+        console.log(move);
+    }
+}
+
+attackButton.addEventListener('click', attackToggle);
+moveButton.addEventListener('click', moveToggle);
 
 
 //who goes first function 
@@ -56,7 +81,7 @@ const whoGoesFirst = (p1Dice, p2Dice) => {
         textToggle.innerHTML = `Player 1 rolled ${p1Dice} and player 2 rolled ${p2Dice}... Player 1 goes first!`
         player1Turn = true;
         for(let box of player1Boxes) {
-            box.addEventListener('click', testFunction);
+            box.addEventListener('click', firstElement);
         }
         diceButton.removeEventListener('click', rollDice);
             
@@ -65,7 +90,7 @@ const whoGoesFirst = (p1Dice, p2Dice) => {
         textToggle.innerHTML = `Player 2 rolled ${p2Dice} and Player 1 rolled ${p1Dice}... Player 2 goes first!`
         player2Turn = true;
         for(let box of player2Boxes) {
-            box.addEventListener('click', testFunction)
+            box.addEventListener('click', firstElement)
         }
         diceButton.removeEventListener('click', rollDice);
     }
@@ -119,31 +144,6 @@ const isEnemy = (element1, element2) => {
 
 
 
-//  for(let box of boxes) {
-//     box.addEventListener('click', testFunction);
-//  }
-if(player1Turn === true && player2Turn === false) {
-    for(let box of player1Boxes) {
-        console.log(box)
-        box.addEventListener('click', testFunction)
-    } 
-} else if(player2Turn === true && player1Turn === false) {
-    for(let box of player2Boxes) {
-       box.addEventListener('click', testFunction);
-    }
-}
-const testFunction2 = (element) => {
-    
-    element.style.border = "5px solid orange";
-    for(let box of boxes) {
-       
-        if(isAdjacent(element,box) === true && isEnemy(element,box) === true) {
-            box.style.border = "5px solid green";
-    }
-    }
-}
-
-
 
 //new game function 
 const newGame = () => {
@@ -154,11 +154,13 @@ const newGame = () => {
     player1Boxes = [box1, box2, box3];
     neutralBoxes = [box4, box5, box6, box7];
     player2Boxes = [box8, box9, box10];
+    attackingScore = 0;
+    defendingScore = 0;
     for(let box of boxes) {
         box.style.border = "1px solid black";
     }
     for(let box of boxes) {
-        box.removeEventListener('click', testFunction)
+        box.removeEventListener('click', firstElement)
     }
 }
 newButton.addEventListener('click', newGame);
