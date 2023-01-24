@@ -6,6 +6,7 @@ const diceButton = document.getElementById('roll-dice');
 const attackButton = document.getElementById('attack');
 const moveButton = document.getElementById('move');
 const newButton = document.getElementById('new');
+const endTurnButton = document.getElementById('end');
 //box elements
 const boxes = document.querySelectorAll('.boxes div')
 const box1 = document.getElementById("box-3");
@@ -20,7 +21,7 @@ const box9 = document.getElementById("box-9");
 const box10 = document.getElementById("box-10");
 //player box arrays
 let player1Boxes = [box1, box2, box3]; 
-let neutralBoxes = [box4, box6, box5, box7];
+let neutralBoxes = [box4, box5, box6, box7];
 let player2Boxes = [box8, box9, box10];
 //
 let player1Turn = false;
@@ -59,6 +60,8 @@ const attackToggle = () => {
     }
 }
 
+attackButton.addEventListener('click', attackToggle);
+
 const moveToggle = () => {
     if(move === false) {
         move = true;
@@ -74,7 +77,7 @@ const moveToggle = () => {
 }
 
 
-
+moveButton.addEventListener('click', moveToggle);
 
 
 
@@ -166,6 +169,119 @@ const isEnemy = (element1, element2) => {
 
 
 
+
+
+const battleLogic = (e) => { 
+    attackingScore = parseInt(currentAS.innerHTML);
+    defendingScore = parseInt(e.target.innerHTML); 
+    let attackingArray;
+    let defendingArray;
+  if(player1Boxes.includes(currentAS)) {
+    attackingArray = player1Boxes;
+    if(player2Boxes.includes(e.target)) {
+        defendingArray = player2Boxes;
+    } else if(neutralBoxes.includes(e.target)) {
+        defendingArray = neutralBoxes;
+    } 
+  } else if(player2Boxes.includes(currentAS)) {
+    attackingArray = player2Boxes;
+    if(player1Boxes.includes(e.target)) {
+        defendingArray = player1Boxes;
+    } else if(neutralBoxes.includes(e.target)) {
+        defendingArray = neutralBoxes;
+    }
+  }   
+  
+    
+    if(attack === true && isEnemy(currentAS, e.target) === true){
+        
+        if(parseInt(currentAS.innerHTML) === parseInt(e.target.innerHTML)) {
+            probabilityArray.push(0);
+            probabilityArray.push(1);
+           
+            
+        } else if(parseInt(currentAS.innerHTML) > parseInt(e.target.innerHTML)) {
+            probabilityArray.push(0, 0, 0);
+            probabilityArray.push(1);
+           
+        } else if(parseInt(currentAS.innerHTML) < parseInt(e.target.innerHTML)) {
+            probabilityArray.push(0);
+            probabilityArray.push(1, 1, 1);
+            
+        }
+
+        if(probabilityArray[Math.floor(Math.random () * probabilityArray.length)] === 0) {
+            console.log(probabilityArray);
+            defendingScore--;
+            if(defendingScore === 0) {
+                if(attackingScore > 1) {
+                    attackingScore--
+                } 
+                defendingScore++;
+                e.target.innerHTML = defendingScore;
+                currentAS.innerHTML = attackingScore;
+                e.target.style.border = "1px solid black";
+                attackingArray.push(e.target);
+                let targetIndex = defendingArray.indexOf(e.target);
+                defendingArray.splice(targetIndex,targetIndex);
+                for(let box of attackingArray) {
+                    box.addEventListener('click', firstElement);
+                }
+               
+
+            } else {
+            e.target.innerHTML = defendingScore;
+            }
+            
+        } else if(probabilityArray[Math.floor(Math.random () * probabilityArray.length)] === 1) {
+            console.log(probabilityArray)
+            attackingScore--;
+            if(attackingScore === 0) {
+                if(defendingScore > 1) {
+                    defendingScore--;
+                }
+                attackingScore++;
+                currentAS.innerHTML = attackingScore;
+                e.target.innerHTML = defendingScore;
+                e.target.style.border = "1px solid black";
+                defendingArray.push(currentAS);
+                let targetIndex = attackingArray.indexOf(currentAS)
+                attackingArray.splice(targetIndex,targetIndex);
+                console.log(player1Boxes);
+                console.log(player2Boxes);
+                console.log(neutralBoxes);
+            } else {
+            currentAS.innerHTML = attackingScore;
+            }
+        }
+        for(let box of player1Boxes) {
+            box.style.backgroundColor = "skyblue";
+        }
+        for(let box of player2Boxes) {
+            box.style.backgroundColor = "red"
+        } 
+        
+    for(let box of neutralBoxes) {
+        box.style.backgroundColor = "rgb(184, 184, 184)";
+    }
+    }
+    
+    
+    probabilityArray = [];
+}
+
+const battleFunction = (element) => {
+    element.style.border = "5px solid yellow";
+    for(let box of boxes) {
+        if(isAdjacent(element,box) === true && isEnemy(element, box) === true ) {
+            box.style.border = "5px solid green";
+            box.addEventListener('click', battleLogic);
+    } 
+    } 
+    
+   
+    
+}
 const highlightAE = (element) => {
     
     element.style.border = "5px solid orange";
@@ -179,32 +295,9 @@ const highlightAE = (element) => {
     }
 }
 
-const battleLogic = (e) => {
-    attackingScore = parseInt(currentAS.innerHTML);
-    defendingScore = parseInt(e.target.innerHTMl)    
-    if(parseInt(currentAS.innerHTML) === parseInt(e.target.innerHTML)) {
-            probabilityArray.push(0);
-            probabilityArray.push(1);
-            console.log(probabilityArray);
-        } else if(parseInt(currentAS.innerHTML) > parseInt(e.target.innerHTML)) {
+//end turn function
 
-        }
-    
-    
-    
-}
-
-const battleFunction = (element) => {
-    element.style.border = "5px solid yellow";
-    for(let box of boxes) {
-        if(isAdjacent(element,box) === true && isEnemy(element, box) === true ) {
-            box.style.border = "5px solid green";
-            box.addEventListener('click', battleLogic);
-        } 
-    } 
-    
-}
-
+// 
 //new game function 
 const newGame = () => {
     textToggle.innerHTML = "ROLL TO SEE WHO GOES FIRST!";
@@ -224,5 +317,4 @@ const newGame = () => {
    }
 }
 newButton.addEventListener('click', newGame);
-attackButton.addEventListener('click', attackToggle);
-moveButton.addEventListener('click', moveToggle);
+
