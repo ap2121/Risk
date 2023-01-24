@@ -31,7 +31,9 @@ let move = false;
 let attackingScore = 0;
 let defendingScore = 0;
 let probabilityArray = [];
-let currentAS; 
+let currentAS;
+let p1SCount = 1;
+let p2SCount = 1;
 //
 
 const rollDice = () => {
@@ -89,6 +91,7 @@ const firstElement = (e) => {
     }
    if(attack === true) {
     battleFunction(clickedElement);
+    
     
    } else if(attack === false) {
     highlightAE(clickedElement);
@@ -193,7 +196,8 @@ const battleLogic = (e) => {
   }   
   
     
-    if(attack === true && isEnemy(currentAS, e.target) === true){
+    if(attack === true && isEnemy(currentAS, e.target) === true && parseInt(currentAS.innerHTML) > 1){
+        moveButton.removeEventListener('click', moveToggle);
         
         if(parseInt(currentAS.innerHTML) === parseInt(e.target.innerHTML)) {
             probabilityArray.push(0);
@@ -276,6 +280,7 @@ const battleFunction = (element) => {
         if(isAdjacent(element,box) === true && isEnemy(element, box) === true ) {
             box.style.border = "5px solid green";
             box.addEventListener('click', battleLogic);
+            
     } 
     } 
     
