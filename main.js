@@ -67,6 +67,7 @@ const attackToggle = () => {
         attackButton.innerHTML = "Attack";
        
     }
+    console.log(attack)
 }
 ////
 
@@ -282,10 +283,12 @@ const addLogic = (e) => {
     if(soldierC > 0){
         clickNumber++
         e.target.innerHTML = clickNumber;
-    }
+        attackButton.addEventListener('click', attackToggle);
+    } 
    soldierC--;
 }
  
+
 ////
 //Sets event handler for battle logic, first element selected passed in
 const battleFunction = (element) => {
