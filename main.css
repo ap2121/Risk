@@ -29,8 +29,8 @@ h3 {
 
 .player1-boxes {
     display: grid;
-    grid-template-columns: 80px 80px;
-    grid-template-rows: 80px 80px; 
+    grid-template-columns: 75px 75px;
+    grid-template-rows: 75px 75px; 
     justify-content: right;
     margin-right: 30px;
 
@@ -62,15 +62,15 @@ h3 {
 }
 .neutral-boxes {
     display: grid;
-    grid-template-columns: 80px 80px;
-    grid-template-rows: 80px 80px;
+    grid-template-columns: 75px 75px;
+    grid-template-rows: 75px 75px;
     justify-content: center;
 }
 
 .player2-boxes {
     display: grid;
-    grid-template-columns: 80px 80px;
-    grid-template-rows: 80px 80px; 
+    grid-template-columns: 75px 75px;
+    grid-template-rows: 75px 75px; 
     justify-content: left;
     margin-left: 30px;
 }
