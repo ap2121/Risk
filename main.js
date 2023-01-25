@@ -39,8 +39,7 @@ let attackingScore = 0;
 let defendingScore = 0;
 let probabilityArray = [];
 let currentAS;
-let p1SCount = 2;
-let p2SCount = 1;
+let soldierC = 2;
 //
 //Roll Dice Function
 const rollDice = () => {
@@ -106,26 +105,10 @@ const firstElement = (e) => {
 }
 /////
 const addToggle = () => {
-    let currentSC;
-    if(player1Turn === true && player2Turn === false) {
-        currentSC = p1SCount;
-        if(player1Boxes.length <= player2Boxes.length) {
-            currentSC = 1;
-        } else if(player1Boxes.length > player2Boxes.length) {
-            currentSC = 2;
-        }
-    } 
-    else if(player2Turn === true && player1Turn === false) {
-        currentSC = p2SCount;
-        if(player2Boxes.length <= player1Boxes.length) {
-            currentSC = 1;
-        } else if(player2Boxes.length > player1Boxes) {
-            currentSC = 2;
-        }
-    }
+    
     if(add === false) {
         add = true;
-        addButton.innerHTML = currentSC;
+        
         if(player1Turn === true & player2Turn === false) {
             for(let box of player1Boxes) {
                 box.addEventListener('click', firstElement);
@@ -135,13 +118,12 @@ const addToggle = () => {
                 box.addEventListener('click', firstElement);  
             }
         }
-        console.log(add);
     } else if(add === true) {
         add = false;
-        addButton.innerHTML = 'Add Soldiers';
-        console.log(add);
+       
 
     }
+    (add)
 }
 /////
 //who goes first function 
@@ -256,7 +238,7 @@ const battleLogic = (e) => {
             defendingScore--;
             if(defendingScore === 0) {
                 if(attackingScore > 1) {
-                    attackingScore--
+                    attackingScore--;
                 } 
                 defendingScore++;
                 e.target.innerHTML = defendingScore;
@@ -277,23 +259,7 @@ const battleLogic = (e) => {
         } else if(probabilityArray[Math.floor(Math.random () * probabilityArray.length)] === 1) {
             console.log(probabilityArray)
             attackingScore--;
-            if(attackingScore === 0) {
-                if(defendingScore > 1) {
-                    defendingScore--;
-                }
-                attackingScore++;
-                currentAS.innerHTML = attackingScore;
-                e.target.innerHTML = defendingScore;
-                e.target.style.border = "1px solid black";
-                defendingArray.push(currentAS);
-                let targetIndex = attackingArray.indexOf(currentAS)
-                attackingArray.splice(targetIndex,targetIndex);
-                console.log(player1Boxes);
-                console.log(player2Boxes);
-                console.log(neutralBoxes);
-            } else {
             currentAS.innerHTML = attackingScore;
-            }
         }
         for(let box of player1Boxes) {
             box.style.backgroundColor = "skyblue";
@@ -310,6 +276,16 @@ const battleLogic = (e) => {
     
     probabilityArray = [];
 }
+const addLogic = (e) => {
+    
+    let clickNumber = parseInt(e.target.innerHTML);
+    if(soldierC > 0){
+        clickNumber++
+        e.target.innerHTML = clickNumber;
+    }
+   soldierC--;
+}
+ 
 ////
 //Sets event handler for battle logic, first element selected passed in
 const battleFunction = (element) => {
@@ -318,31 +294,23 @@ const battleFunction = (element) => {
         if(isAdjacent(element,box) === true && isEnemy(element, box) === true ) {
             box.style.border = "5px solid green";
             box.addEventListener('click', battleLogic);
-            
-    } 
-    } 
-    }
+             } } }
 // function ran if add soldiers is true;
-const addFunction = (element) => {
-   element.style.border = "5px solid purple";
-    let currentSC;
-    if(player1Turn === true && player2Turn === false) {
-        currentSC = p1SCount;
-        for(let box of player1Boxes) {
-            if(box !== element) {
-                box.style.border = "5px solid pink";
-            }
-            
-        }
-    } else if(player2Turn === true && player1Turn === false) {
-        currentSC = p2SCount;
-        for(let box of player2Boxes) {
-            if(box !== element) {
-                box.style.border = "5px solid pink";
 
-            }
-        }
+const addFunction = (element) => {
+   element.style.border = "5px solid pink";
+   if(player1Turn === true && player2Turn === false) {
+    for(let box of player1Boxes) {
+        box.style.border = "5px solid pink"
+        box.addEventListener('click', addLogic);
     }
+   } else if(player2Turn === true && player1Turn === false) {
+        for(let box of player2Boxes) {
+            box.style.border = "5px solid pink";
+            box.addEventListener('click', addLogic);
+        }
+   }
+   
 }
 //    
 //highlights adjacent friendlies and adjacent enemies 
