@@ -33,7 +33,6 @@ let player2Boxes = [box8, box9, box10];
 let player1Turn = false;
 let player2Turn = false;
 let attack = false;
-let move = false;
 let add = false;
 let attackingScore = 0;
 let defendingScore = 0;
@@ -61,6 +60,9 @@ const attackToggle = () => {
     if(attack === false) {
         attack = true;
         attackButton.innerHTML = "End Attack"
+        for(let box of boxes) {
+            box.style.border = "1px solid black";
+        }
         
     } else if(attack === true) {
         attack = false;
@@ -94,7 +96,7 @@ const firstElement = (e) => {
     for(let box of boxes) {
         box.style.border = "1px solid black";
     }
-   if(attack === true && move === false) {
+   if(attack === true) {
     battleFunction(clickedElement);
     
     
@@ -126,6 +128,8 @@ const addToggle = () => {
     }
     (add)
 }
+
+
 /////
 //who goes first function 
 const whoGoesFirst = (p1Dice, p2Dice) => {
@@ -242,8 +246,8 @@ const battleLogic = (e) => {
                     attackingScore--;
                 } 
                 defendingScore++;
-                e.target.innerHTML = defendingScore;
-                currentAS.innerHTML = attackingScore;
+                e.target.innerHTML = attackingScore;
+                currentAS.innerHTML = defendingScore;
                 e.target.style.border = "1px solid black";
                 attackingArray.push(e.target);
                 let targetIndex = defendingArray.indexOf(e.target);
@@ -273,7 +277,15 @@ const battleLogic = (e) => {
         box.style.backgroundColor = "rgb(184, 184, 184)";
     }
     }
-    
+    if(player1Turn === true && player2Turn === false) {
+        if(attackingArray.length === 10) {
+            textToggle.innerHTML = "Blue Wins"
+        }
+    } else if(player2Turn === true) {
+        if(attackingArray.length === 10) {
+            textToggle.innerHTML = "Red Wins"
+        }
+    }
     
     probabilityArray = [];
 }
