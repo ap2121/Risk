@@ -128,7 +128,7 @@ const firstElement = (e) => {
     battleFunction(clickedElement);
     
     
-   } else if(attack === false && move === false && add === false) {
+   } else if(attack === false && add === false) {
     highlightAE(clickedElement);
    } else if(add === true) {
     addFunction(clickedElement);
@@ -228,7 +228,7 @@ const battleLogic = (e) => {
     }
   }   
     if(attack === true && isEnemy(currentAS, e.target) === true && parseInt(currentAS.innerHTML) > 1){
-        moveButton.removeEventListener('click', moveToggle);
+        
         addButton.removeEventListener('click', addToggle)
         if(parseInt(currentAS.innerHTML) === parseInt(e.target.innerHTML)) {
             probabilityArray.push(0);
@@ -388,6 +388,7 @@ const endTurn = () => {
     }
     attackButton.innerHTML = "Attack";
     addButton.addEventListener('click', addToggle);
+    addButton.innerHTML = "Add Soldiers";
 }
 // 
  //new game function 
