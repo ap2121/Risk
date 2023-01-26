@@ -60,6 +60,8 @@ const attackToggle = () => {
     if(attack === false) {
         attack = true;
         attackButton.innerHTML = "End Attack"
+        addButton.innerHTML = "Add Soldiers";
+        add = false;
         for(let box of boxes) {
             box.style.border = "1px solid black";
         }
@@ -88,6 +90,32 @@ const moveToggle = () => {
     
 
 }
+const addToggle = () => {
+    
+    if(add === false) {
+        add = true;
+        addButton.innerHTML = soldierC;
+        if(player1Turn === true & player2Turn === false) {
+            
+            for(let box of player1Boxes) {
+                
+                box.addEventListener('click', firstElement);
+            }
+        } else if(player2Turn === true && player1Turn === false) {
+            
+            for(let box of player2Boxes) {
+                
+                box.addEventListener('click', firstElement);  
+            }
+        }
+    } else if(add === true) {
+        add = false;
+       addButton.innerHTML = 'Add Soldiers';
+
+    }
+    
+}
+
 
 //Gets and passes first element into function depending on Global Toggles
 const firstElement = (e) => {
@@ -107,27 +135,6 @@ const firstElement = (e) => {
    } 
 }
 /////
-const addToggle = () => {
-    
-    if(add === false) {
-        add = true;
-        
-        if(player1Turn === true & player2Turn === false) {
-            for(let box of player1Boxes) {
-                box.addEventListener('click', firstElement);
-            }
-        } else if(player2Turn === true && player1Turn === false) {
-            for(let box of player2Boxes) {
-                box.addEventListener('click', firstElement);  
-            }
-        }
-    } else if(add === true) {
-        add = false;
-       
-
-    }
-    (add)
-}
 
 
 /////
@@ -251,7 +258,11 @@ const battleLogic = (e) => {
                 e.target.style.border = "1px solid black";
                 attackingArray.push(e.target);
                 let targetIndex = defendingArray.indexOf(e.target);
+               if(defendingArray.indexOf(e.target) === 0) {
+                defendingArray.shift()
+               } else if(defendingArray.indexOf(e.target !== 0)) {
                 defendingArray.splice(targetIndex,targetIndex);
+               }
                 for(let box of attackingArray) {
                     box.addEventListener('click', firstElement);
                 }
@@ -286,7 +297,9 @@ const battleLogic = (e) => {
             textToggle.innerHTML = "Red Wins"
         }
     }
-    
+    console.log(player1Boxes);
+    console.log(player2Boxes);
+    console.log(neutralBoxes);
     probabilityArray = [];
 }
 const addLogic = (e) => {
@@ -297,19 +310,16 @@ const addLogic = (e) => {
         e.target.innerHTML = clickNumber;
         attackButton.addEventListener('click', attackToggle);
     } 
-   soldierC--;
+   if(soldierC > 0) {
+    soldierC--;
+   addButton.innerHTML = soldierC;
+   }
 }
  
 
 ////
 //Sets event handler for battle logic, first element selected passed in
-const battleFunction = (element) => {
-    element.style.border = "5px solid yellow";
-    for(let box of boxes) {
-        if(isAdjacent(element,box) === true && isEnemy(element, box) === true ) {
-            box.style.border = "5px solid green";
-            box.addEventListener('click', battleLogic);
-             } } }
+
 // function ran if add soldiers is true;
 
 const addFunction = (element) => {
@@ -328,6 +338,15 @@ const addFunction = (element) => {
    
 }
 //    
+
+const battleFunction = (element) => {
+    element.style.border = "5px solid yellow";
+    for(let box of boxes) {
+        if(isAdjacent(element,box) === true && isEnemy(element, box) === true ) {
+            box.style.border = "5px solid green";
+            box.addEventListener('click', battleLogic);
+            
+             } } }
 //highlights adjacent friendlies and adjacent enemies 
 const highlightAE = (element) => {
     
@@ -343,9 +362,35 @@ const highlightAE = (element) => {
 }
 /////
 //end turn function
-
+const endTurn = () => {
+   if(player1Turn === true && player2Turn === false) {
+        player1Turn = false;
+        player2Turn = true;
+        for(let box of player1Boxes) {
+            box.removeEventListener('click', firstElement);
+        }
+   } else if(player2Turn === true && player1Turn === false) {
+        player1Turn = true;
+        player2Turn = false;
+        for(let box of player2Boxes) {
+            box.removeEventListener('click', firstElement);
+        }
+   }
+    attack = false;
+    add = false;
+    attackingScore = 0;
+    defendingScore = 0;
+    probabilityArray = [];
+    currentAS;
+    soldierC = 2;
+    for(let box of boxes) {
+        box.style.border = "1px solid black";
+    }
+    attackButton.innerHTML = "Attack";
+    addButton.addEventListener('click', addToggle);
+}
 // 
-//new game function 
+ //new game function 
 const newGame = () => {
     textToggle.innerHTML = "ROLL TO SEE WHO GOES FIRST!";
     diceButton.addEventListener('click',rollDice);
@@ -364,4 +409,4 @@ const newGame = () => {
    }
 }
 newButton.addEventListener('click', newGame);
-///
+endTurnButton.addEventListener('click', endTurn);
