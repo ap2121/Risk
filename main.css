@@ -2,6 +2,11 @@
     padding: 0;
     margin: 0
 }
+body {
+background-image: url(https://media.istockphoto.com/id/187791082/vector/american-football-stadium.jpg?s=612x612&w=0&k=20&c=cdeZp-fz2Bs71XCZkSDeW7qRbbzXScPW3U421qm2_qI=);
+background-size: cover;
+}
+
 h1{
     text-align: center;
     font-size: 100px;
@@ -21,7 +26,7 @@ h3 {
     margin-bottom: 40px;
     grid-template-columns: 50px 50px;
     grid-template-rows: 50px 50px;
-    padding-top: 30px;
+    padding-top: 15px;
    
     
    
@@ -41,6 +46,7 @@ h3 {
 .p1-box {
     display: flex;
     border: 1px solid black;
+    border-radius: 50%;
     align-items: center;
     justify-content: center;
     background-color: skyblue;
@@ -48,6 +54,7 @@ h3 {
 .neutral-box {
     display: flex;
     border: 1px solid black;
+    border-radius: 50%;
     align-items: center;
     justify-content: center;
     background-color: rgb(184, 184, 184);
@@ -56,6 +63,7 @@ h3 {
 .p2-box {
     display: flex;
     border: 1px solid black;
+    border-radius: 50%;
     align-items: center;
     justify-content: center;
     background-color: red;
@@ -73,5 +81,6 @@ h3 {
     grid-template-rows: 75px 75px; 
     justify-content: left;
     margin-left: 30px;
+    padding-bottom: 10px;
 }
 
