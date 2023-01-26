@@ -3,7 +3,7 @@ const textToggle = document.getElementById('text-toggle');
 const title = document.getElementById('title')
 //////
 //button elements
-const buttonContainer = document.querySelectorAll('.buttons');
+const buttons = document.querySelectorAll('.buttons');
 const diceButton = document.getElementById('roll-dice');
 const attackButton = document.getElementById('attack');
 const moveButton = document.getElementById('move');
@@ -60,7 +60,8 @@ const attackToggle = () => {
     if(attack === false) {
         attack = true;
         attackButton.innerHTML = "End Attack"
-        addButton.innerHTML = "Add Soldiers";
+        addButton.innerHTML = "Add Players";
+        textToggle.innerHTML = "ATTACK UP THE FIELD!"
         add = false;
         for(let box of boxes) {
             box.style.border = "1px solid black";
@@ -75,21 +76,8 @@ const attackToggle = () => {
 }
 ////
 
-//Toggles Move True and False
-const moveToggle = () => {
-    if(move === false) {
-        move = true;
-        moveButton.innerHTML = "Cancel";
-        
-        
-    } else if(move === true) {
-        move = false;
-        moveButton.innerHTML = "Move";
-        
-    }
-    
 
-}
+
 const addToggle = () => {
     
     if(add === false) {
@@ -110,7 +98,7 @@ const addToggle = () => {
         }
     } else if(add === true) {
         add = false;
-       addButton.innerHTML = 'Add Soldiers';
+       addButton.innerHTML = 'Add Players';
 
     }
     
@@ -146,7 +134,7 @@ const whoGoesFirst = (p1Dice, p2Dice) => {
            else if(p1Dice > p2Dice) {
         
         player1Turn = true;
-        textToggle.innerHTML = 'ADD YOUR SOLDIERS!'
+        textToggle.innerHTML = 'ADD YOUR PLAYERS!'
         textToggle.style.color = "#002244";
         title.innerHTML = "GO HAWKS!";
         title.style.color = "#002244";
@@ -156,7 +144,7 @@ const whoGoesFirst = (p1Dice, p2Dice) => {
     } 
     else if(p2Dice > p1Dice) {
         player2Turn = true;
-        textToggle.innerHTML = "ADD YOUR SOLDIERS!";
+        textToggle.innerHTML = "ADD YOUR PLAYERS!";
         textToggle.style.color = "red";
         title.innerHTML = "GO NINERS!";
         title.style.color = "red";
@@ -254,6 +242,7 @@ const battleLogic = (e) => {
         if(probabilityArray[Math.floor(Math.random () * probabilityArray.length)] === 0) {
             console.log(probabilityArray);
             defendingScore--;
+            
             if(defendingScore === 0) {
                 if(attackingScore > 1) {
                     attackingScore--;
@@ -281,6 +270,7 @@ const battleLogic = (e) => {
         } else if(probabilityArray[Math.floor(Math.random () * probabilityArray.length)] === 1) {
             console.log(probabilityArray)
             attackingScore--;
+            
             currentAS.innerHTML = attackingScore;
         }
         for(let box of player1Boxes) {
@@ -294,20 +284,21 @@ const battleLogic = (e) => {
         
     for(let box of neutralBoxes) {
         box.style.backgroundColor = "rgb(184, 184, 184)";
+        
     }
     }
     if(player1Turn === true && player2Turn === false) {
         if(attackingArray.length === 10) {
-            textToggle.innerHTML = "Blue Wins"
+            title.innerHTML = "TOUCHDOWN SEAHAWKS!"
+            textToggle.innerHTML = "A thrilling overtime victory brings the title back to Seattle!"
         }
     } else if(player2Turn === true) {
         if(attackingArray.length === 10) {
-            textToggle.innerHTML = "Red Wins"
+            title.innerHTML = "TOUCHDOWN 49ERS"
+            textToggle.innerHTML = "San Francisco scores in overtime and brings the trophy back to the Bay!"
         }
     }
-    console.log(player1Boxes);
-    console.log(player2Boxes);
-    console.log(neutralBoxes);
+    
     probabilityArray = [];
 }
 const addLogic = (e) => {
@@ -374,12 +365,21 @@ const endTurn = () => {
    if(player1Turn === true && player2Turn === false) {
         player1Turn = false;
         player2Turn = true;
+        title.innerHTML = "GO NINERS!";
+        textToggle.innerHTML = "ADD YOUR PLAYERS";
+        title.style.color = "red";
+        textToggle.style.color = "red";
+        
         for(let box of player1Boxes) {
             box.removeEventListener('click', firstElement);
         }
    } else if(player2Turn === true && player1Turn === false) {
         player1Turn = true;
         player2Turn = false;
+        title.innerHTML = "GO HAWKS!";
+        textToggle.innerHTML = "ADD YOUR PLAYERS";
+        title.style.color = "#002244";
+        textToggle.style.color = "#002244";
         for(let box of player2Boxes) {
             box.removeEventListener('click', firstElement);
         }
@@ -396,7 +396,7 @@ const endTurn = () => {
     }
     attackButton.innerHTML = "Attack";
     addButton.addEventListener('click', addToggle);
-    addButton.innerHTML = "Add Soldiers";
+    addButton.innerHTML = "Add Player";
 }
 // 
  //new game function 

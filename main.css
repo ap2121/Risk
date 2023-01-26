@@ -1,6 +1,6 @@
 *{
     padding: 0;
-    margin: 0
+    margin: 0;
 }
 body {
     background-image: url(https://media.istockphoto.com/id/187791082/vector/american-football-stadium.jpg?s=612x612&w=0&k=20&c=cdeZp-fz2Bs71XCZkSDeW7qRbbzXScPW3U421qm2_qI=);
@@ -25,12 +25,18 @@ h3 {
     justify-content: center;
     margin-top: 10px;
     margin-bottom: 40px;
-    grid-template-columns: 50px 50px;
-    grid-template-rows: 50px 50px;
+    grid-template-columns: 60px 60px;
+    grid-template-rows: 60px 60px;
     padding-top: 15px;
+    
    
     
    
+}
+
+.btn {
+    font-family: 'Graduate', cursive;
+    
 }
 
 .player1-boxes {
