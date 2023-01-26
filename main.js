@@ -362,7 +362,7 @@ const highlightAE = (element) => {
 /////
 //end turn function
 const endTurn = () => {
-   if(player1Turn === true && player2Turn === false) {
+    if(player1Turn === true && player2Turn === false) {
         player1Turn = false;
         player2Turn = true;
         title.innerHTML = "GO NINERS!";
@@ -401,7 +401,11 @@ const endTurn = () => {
 // 
  //new game function 
 const newGame = () => {
+    
+    title.innerHTML = "RISK RUMBLE";
     textToggle.innerHTML = "ROLL TO SEE WHO GOES FIRST!";
+    title.style.color = "black";
+    textToggle.style.color = "black";
     diceButton.addEventListener('click',rollDice);
     player1Turn = false;
     player2Turn = false;

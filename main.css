@@ -8,12 +8,11 @@ body {
     font-family: 'Graduate', cursive;
 }
 
-h1{
+#title{
     text-align: center;
     font-size: 100px;
 }
-
-h3 {
+#text-toggle {
     text-align: center;
     font-size: 30px;
 
