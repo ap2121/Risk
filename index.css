@@ -1,0 +1,41 @@
+*{
+    padding: 0;
+    margin: 0
+}
+body {
+    background-image: url("https://static.vecteezy.com/system/resources/thumbnails/004/279/082/small/superbowl-football-field-background-free-vector.jpg");
+    background-size: cover;
+    font-family: 'Graduate', cursive;
+}
+
+#welcome {
+    text-align: center;
+    font-size: 100px;
+    color: white;
+    margin-bottom: 20px;
+    
+}
+ #intro {
+    text-align: center;
+    color: #69BE28;
+    font-size: 35px;
+    margin: 10px;
+ }
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 70px;
+    
+
+    
+}
+
+.btn {
+    padding: 30px;
+    margin: 10px 30px;
+    font-family: 'Graduate', cursive;
+    font-size: 20px;
+    background-color: #002244;
+    color: #69BE28;
+}

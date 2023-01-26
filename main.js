@@ -144,16 +144,22 @@ const whoGoesFirst = (p1Dice, p2Dice) => {
         textToggle.innerHTML = `Player 1 rolled ${p1Dice} and Player 2 rolled ${p2Dice}... Roll Again!`
            } 
            else if(p1Dice > p2Dice) {
-        textToggle.innerHTML = `Player 1 rolled ${p1Dice} and player 2 rolled ${p2Dice}... Player 1 goes first!`
+        
         player1Turn = true;
-     
+        textToggle.innerHTML = 'ADD YOUR SOLDIERS!'
+        textToggle.style.color = "#002244";
+        title.innerHTML = "GO HAWKS!";
+        title.style.color = "#002244";
         diceButton.removeEventListener('click', rollDice);
-        addButton.addEventListener('click', addToggle )  
+        addButton.addEventListener('click', addToggle );
+
     } 
     else if(p2Dice > p1Dice) {
-        textToggle.innerHTML = `Player 2 rolled ${p2Dice} and Player 1 rolled ${p1Dice}... Player 2 goes first!`
         player2Turn = true;
-        
+        textToggle.innerHTML = "ADD YOUR SOLDIERS!";
+        textToggle.style.color = "red";
+        title.innerHTML = "GO NINERS!";
+        title.style.color = "red";
         diceButton.removeEventListener('click', rollDice);
         addButton.addEventListener('click', addToggle);
     }
@@ -278,10 +284,12 @@ const battleLogic = (e) => {
             currentAS.innerHTML = attackingScore;
         }
         for(let box of player1Boxes) {
-            box.style.backgroundColor = "skyblue";
+            box.style.backgroundColor = "#002244";
+            box.style.color = "#69BE28";
         }
         for(let box of player2Boxes) {
             box.style.backgroundColor = "red"
+            box.style.color = "gold";
         } 
         
     for(let box of neutralBoxes) {
