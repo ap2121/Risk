@@ -251,13 +251,16 @@ const battleLogic = (e) => {
                 e.target.innerHTML = attackingScore;
                 currentAS.innerHTML = defendingScore;
                 e.target.style.border = "1px solid black";
-                attackingArray.push(e.target);
+                
                 let targetIndex = defendingArray.indexOf(e.target);
                if(defendingArray.indexOf(e.target) === 0) {
                 defendingArray.shift()
                } else if(defendingArray.indexOf(e.target !== 0)) {
                 defendingArray.splice(targetIndex,targetIndex);
+               } else if(defendingArray.indexOf(e.target) === defendingArray.length -1) {
+                defendingArray.pop();
                }
+               attackingArray.push(e.target);
                 for(let box of attackingArray) {
                     box.addEventListener('click', firstElement);
                 }
@@ -268,7 +271,7 @@ const battleLogic = (e) => {
             }
             
         } else if(probabilityArray[Math.floor(Math.random () * probabilityArray.length)] === 1) {
-            console.log(probabilityArray)
+            
             attackingScore--;
             
             currentAS.innerHTML = attackingScore;
@@ -298,7 +301,9 @@ const battleLogic = (e) => {
             textToggle.innerHTML = "San Francisco scores in overtime and brings the trophy back to the Bay!"
         }
     }
-    
+    console.log(player1Boxes);
+    console.log(player2Boxes);
+    console.log(neutralBoxes);
     probabilityArray = [];
 }
 const addLogic = (e) => {
